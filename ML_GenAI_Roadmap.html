@@ -1,0 +1,1763 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ML + GenAI 6-Month Roadmap</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background:#0f172a;
+color:white;
+padding:30px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #60a5fa;
+  font-size: 32px;
+}
+
+.month-section {
+  margin-bottom: 50px;
+}
+
+.month-title {
+  font-size: 24px;
+  color: #fbbf24;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #3b82f6;
+}
+
+details{
+background:#1e293b;
+margin-bottom:12px;
+padding:15px;
+border-radius:8px;
+border-left: 4px solid #3b82f6;
+transition: all 0.3s ease;
+}
+
+details:hover {
+  background: #334155;
+}
+
+summary{
+font-size:17px;
+cursor:pointer;
+font-weight:bold;
+color: #60a5fa;
+user-select: none;
+}
+
+.daily-tasks {
+  margin-top: 12px;
+  margin-left: 10px;
+}
+
+.day {
+  background: #0f172a;
+  padding: 10px;
+  margin: 8px 0;
+  border-radius: 5px;
+  border-left: 3px solid #10b981;
+}
+
+.day-title {
+  color: #34d399;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.task{
+margin-left:20px;
+padding:8px;
+text-align: left;
+}
+
+input{
+margin-right:10px;
+cursor: pointer;
+}
+
+input:checked + label {
+  opacity: 0.5;
+  text-decoration: line-through;
+}
+
+label {
+  cursor: pointer;
+}
+
+.project-box {
+  background: #166534;
+  border: 2px solid #10b981;
+  padding: 12px;
+  margin: 10px 20px;
+  border-radius: 6px;
+}
+
+.project-title {
+  color: #4ade80;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.project-desc {
+  color: #dcfce7;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.resources-box {
+  background: #1e3a8a;
+  border: 2px solid #3b82f6;
+  padding: 10px;
+  margin: 8px 20px;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.resources-title {
+  color: #93c5fd;
+  font-weight: bold;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 6px;
+  background: #334155;
+  margin-top: 20px;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-around;
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  text-align: center;
+}
+
+.stat-number {
+  font-size: 24px;
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 5px;
+}
+
+.daily-goal {
+  background: linear-gradient(135deg, #1e3a8a 0%, #15803d 100%);
+  border: 2px solid #3b82f6;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  display: none;
+}
+
+.daily-goal.active {
+  display: block;
+}
+
+.goal-header {
+  color: #60a5fa;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.time-block {
+  background: rgba(0,0,0,0.3);
+  padding: 10px;
+  margin: 8px 0;
+  border-left: 4px solid #fbbf24;
+  border-radius: 4px;
+}
+
+.time-indicator {
+  color: #fbbf24;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.concepts-list {
+  background: rgba(0,0,0,0.3);
+  padding: 10px;
+  margin: 8px 0;
+  border-left: 4px solid #10b981;
+  border-radius: 4px;
+}
+
+.concepts-title {
+  color: #34d399;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.concept-item {
+  color: #d1fae5;
+  font-size: 13px;
+  padding: 3px 0;
+  margin-left: 10px;
+}
+
+.time-spent {
+  display: inline-block;
+  background: #1e3a8a;
+  color: #93c5fd;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.daily-summary {
+  background: #0f3460;
+  border: 2px solid #00d4ff;
+  padding: 12px;
+  margin: 15px 0;
+  border-radius: 6px;
+  display: none;
+}
+
+.daily-summary.active {
+  display: block;
+}
+
+.summary-title {
+  color: #00d4ff;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.summary-stat {
+  color: #d1fae5;
+  font-size: 13px;
+  padding: 3px 0;
+}
+
+.today-indicator {
+  display: inline-block;
+  background: #ef4444;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.day-progress {
+  background: #334155;
+  height: 3px;
+  margin-top: 8px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.day-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #10b981, #34d399);
+  width: 0%;
+  transition: width 0.3s ease;
+}
+
+.study-timer-floating {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  border: 2px solid #3b82f6;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(59, 130, 246, 0.3);
+  z-index: 9999;
+  width: 320px;
+  max-width: 90vw;
+  font-family: 'Segoe UI', sans-serif;
+  cursor: grab;
+  user-select: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.study-timer-floating.dragging {
+  cursor: grabbing;
+  box-shadow: 0 12px 48px rgba(59, 130, 246, 0.5);
+}
+
+.timer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #374151;
+  cursor: grab;
+}
+
+.timer-header-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.minimize-btn {
+  background: none;
+  border: none;
+  color: #60a5fa;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.minimize-btn:hover {
+  color: #93c5fd;
+  transform: scale(1.1);
+}
+
+.minimize-btn:active {
+  transform: scale(0.95);
+}
+
+.study-timer-floating.minimized {
+  width: 320px;
+  max-width: 90vw;
+  padding: 20px;
+}
+
+.study-timer-floating.minimized .timer-display,
+.study-timer-floating.minimized .preset-buttons,
+.study-timer-floating.minimized .custom-duration-section,
+.study-timer-floating.minimized .session-info,
+.study-timer-floating.minimized .tips-box,
+.study-timer-floating.minimized .timer-controls,
+.study-timer-floating.minimized .timer-controls-bottom {
+  display: none;
+}
+
+.study-timer-floating.minimized .timer-header {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.timer-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #60a5fa;
+}
+
+.timer-mode-badge {
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: #1e40af;
+  color: #93c5fd;
+  font-weight: bold;
+}
+
+.timer-display {
+  font-size: 32px;
+  color: #fbbf24;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  margin: 15px 0;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+}
+
+.timer-progress-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #3b82f6, #60a5fa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 10px auto;
+  position: relative;
+}
+
+.timer-progress-inner {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #1f2937;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.timer-progress-text {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+.preset-buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin: 10px 0;
+}
+
+.preset-btn {
+  background: #374151;
+  color: #e5e7eb;
+  border: 1px solid #4b5563;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+.preset-btn:hover {
+  background: #4b5563;
+  border-color: #60a5fa;
+  color: #93c5fd;
+}
+
+.preset-btn.active {
+  background: #3b82f6;
+  border-color: #60a5fa;
+  color: #dbeafe;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0;
+  justify-content: center;
+}
+
+.timer-btn {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.timer-btn-primary {
+  background: #10b981;
+  color: white;
+}
+
+.timer-btn-primary:hover {
+  background: #059669;
+}
+
+.timer-btn-secondary {
+  background: #f59e0b;
+  color: white;
+}
+
+.timer-btn-secondary:hover {
+  background: #d97706;
+}
+
+.timer-btn-danger {
+  background: #ef4444;
+  color: white;
+}
+
+.timer-btn-danger:hover {
+  background: #dc2626;
+}
+
+.session-info {
+  background: #0f172a;
+  padding: 8px;
+  border-radius: 6px;
+  margin: 10px 0;
+  font-size: 12px;
+  color: #d1fae5;
+  text-align: center;
+}
+
+.session-count {
+  font-size: 13px;
+  color: #60a5fa;
+  font-weight: bold;
+}
+
+.tips-box {
+  background: #1e3a8a;
+  border-left: 3px solid #60a5fa;
+  padding: 8px;
+  border-radius: 4px;
+  margin: 8px 0;
+  font-size: 11px;
+  color: #bfdbfe;
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.timer-controls-bottom {
+  display: flex;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.timer-toggle-btn {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid #4b5563;
+  background: #374151;
+  color: #e5e7eb;
+  border-radius: 6px;
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-weight: bold;
+}
+
+.timer-toggle-btn.active {
+  background: #3b82f6;
+  border-color: #60a5fa;
+  color: #dbeafe;
+}
+
+.study-timer {
+  display: none;
+}
+
+button {
+  background: #ea580c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  margin: 0 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #c2410c;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>🚀 6-Month ML + GenAI Learning Roadmap</h1>
+
+<div class="stats">
+  <div class="stat-box">
+    <div class="stat-number">24</div>
+    <div class="stat-label">Weeks</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">8</div>
+    <div class="stat-label">Major Projects</div>
+  </div>
+  <div class="stat-box">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Phases</div>
+  </div>
+</div>
+
+<div class="progress-bar">
+  <div class="progress-fill" id="progressFill"></div>
+</div>
+
+<!-- ============== DAILY PROGRESS TRACKER ============== -->
+<div style="background: #1e293b; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 2px solid #3b82f6;">
+  <div style="font-size: 20px; color: #60a5fa; margin-bottom: 15px; font-weight: bold;">📊 Daily Progress Tracker</div>
+  
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; border-left: 4px solid #10b981;">
+      <div style="color: #34d399; font-size: 12px; font-weight: bold;">TODAY'S GOAL</div>
+      <div style="color: #d1fae5; font-size: 18px; margin-top: 5px; font-weight: bold;" id="todayGoal">--</div>
+      <div style="color: #6ee7b7; font-size: 12px; margin-top: 5px;">hours</div>
+    </div>
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; border-left: 4px solid #fbbf24;">
+      <div style="color: #fcd34d; font-size: 12px; font-weight: bold;">TIME SPENT</div>
+      <div style="color: #fef08a; font-size: 18px; margin-top: 5px; font-weight: bold;" id="timeSpent">0.0</div>
+      <div style="color: #fde047; font-size: 12px; margin-top: 5px;">hours</div>
+    </div>
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; border-left: 4px solid #3b82f6;">
+      <div style="color: #93c5fd; font-size: 12px; font-weight: bold;">CONCEPTS LEARNED</div>
+      <div style="color: #bfdbfe; font-size: 18px; margin-top: 5px; font-weight: bold;" id="conceptsCount">0</div>
+      <div style="color: #dbeafe; font-size: 12px; margin-top: 5px;">today</div>
+    </div>
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; border-left: 4px solid #ec4899;">
+      <div style="color: #f472b6; font-size: 12px; font-weight: bold;">STUDY STREAK</div>
+      <div style="color: #fbcfe8; font-size: 18px; margin-top: 5px; font-weight: bold;" id="streak">🔥 0</div>
+      <div style="color: #f9a8d4; font-size: 12px; margin-top: 5px;">days</div>
+    </div>
+  </div>
+
+  <div style="background: #0f172a; padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+    <div style="color: #60a5fa; font-size: 12px; font-weight: bold; margin-bottom: 8px;">WEEKLY SUMMARY</div>
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="color: #d1fae5;">Tasks Completed: <span id="weekTasks" style="color: #4ade80; font-weight: bold;">0/42</span></div>
+        <div style="color: #d1fae5; margin-top: 5px;">Hours Invested: <span id="weekHours" style="color: #fbbf24; font-weight: bold;">0</span></div>
+      </div>
+      <div style="text-align: right;">
+        <div style="color: #60a5fa; font-size: 24px; font-weight: bold;" id="weekProgress">0%</div>
+        <div style="color: #3b82f6; font-size: 11px;">Week Progress</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden legacy timer -->
+  <div class="study-timer" style="display:none;">
+    <div class="timer-label">⏱️ STUDY SESSION TIMER</div>
+    <div class="timer-display" id="timerDisplay">00:00:00</div>
+  </div>
+</div>
+
+<!-- ============== MONTH 1: PYTHON & OOP ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 1: Python Basics & OOP (Weeks 1-4)</div>
+
+<!-- WEEK 1 -->
+<details><summary>Week 1 — Python Basics</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Syntax & Variables</div>
+<div class="task"><input type="checkbox" id="w1d1t1"><label for="w1d1t1">Data types and expressions</label></div>
+<div class="task"><input type="checkbox" id="w1d1t2"><label for="w1d1t2">Control flow: if/else/loops</label></div>
+<div class="task"><input type="checkbox" id="w1d1t3"><label for="w1d1t3">Functions and modular code</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Collections</div>
+<div class="task"><input type="checkbox" id="w1d2t1"><label for="w1d2t1">Lists, tuples, dicts, sets</label></div>
+<div class="task"><input type="checkbox" id="w1d2t2"><label for="w1d2t2">Comprehensions and iteration</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Practice & Mini Project</div>
+<div class="task"><input type="checkbox" id="w1d3t1"><label for="w1d3t1">Build CLI TO-DO list app</label></div></div>
+</div></details>
+
+<!-- WEEK 2 -->
+<details><summary>Week 2 — OOP Fundamentals</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Classes & Objects</div>
+<div class="task"><input type="checkbox" id="w2d1t1"><label for="w2d1t1">Define classes, attributes, methods</label></div>
+<div class="task"><input type="checkbox" id="w2d1t2"><label for="w2d1t2">__init__, self, instance variables</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Inheritance & Polymorphism</div>
+<div class="task"><input type="checkbox" id="w2d2t1"><label for="w2d2t1">Subclasses and method override</label></div>
+<div class="task"><input type="checkbox" id="w2d2t2"><label for="w2d2t2">super() and parent methods</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: OOP Project</div>
+<div class="task"><input type="checkbox" id="w2d3t1"><label for="w2d3t1">Build library system with classes</label></div></div>
+</div></details>
+
+<!-- WEEK 3 -->
+<details><summary>Week 3 — Advanced Python</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: File I/O & Exceptions</div>
+<div class="task"><input type="checkbox" id="w3d1t1"><label for="w3d1t1">Read/write files (CSV, JSON)</label></div>
+<div class="task"><input type="checkbox" id="w3d1t2"><label for="w3d1t2">Try-except error handling</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Functional Programming</div>
+<div class="task"><input type="checkbox" id="w3d1t3"><label for="w3d1t3">map/filter/reduce, lambda</label></div>
+<div class="task"><input type="checkbox" id="w3d1t4"><label for="w3d1t4">Decorators and context managers</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Data Transform Project</div>
+<div class="task"><input type="checkbox" id="w3d1t5"><label for="w3d1t5">Build data transformation script</label></div></div>
+</div></details>
+
+<!-- WEEK 4 -->
+<details><summary>Week 4 — Consolidation & Testing</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-3: Unit Testing</div>
+<div class="task"><input type="checkbox" id="w4d1t1"><label for="w4d1t1">unittest framework basics</label></div>
+<div class="task"><input type="checkbox" id="w4d1t2"><label for="w4d1t2">pytest conventions</label></div></div>
+<div class="day"><div class="day-title">📌 Day 4-7: Full OOP Project</div>
+<div class="task"><input type="checkbox" id="w4d1t3"><label for="w4d1t3">Implement + test complete OOP system</label></div>
+<div class="task"><input type="checkbox" id="w4d1t4"><label for="w4d1t4">Git commit and repo setup</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== MONTH 2: DATA PREPROCESSING & VISUALIZATION ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 2: Data Preprocessing & Visualization (Weeks 5-8)</div>
+
+<!-- WEEK 5 -->
+<details><summary>Week 5 — NumPy & Pandas Fundamentals</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: NumPy Arrays</div>
+<div class="task"><input type="checkbox" id="w5d1t1"><label for="w5d1t1">Create arrays, indexing, slicing</label></div>
+<div class="task"><input type="checkbox" id="w5d1t2"><label for="w5d1t2">Array operations and broadcasting</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Pandas Series/DataFrame</div>
+<div class="task"><input type="checkbox" id="w5d1t3"><label for="w5d1t3">Load data, head/tail, describe</label></div>
+<div class="task"><input type="checkbox" id="w5d1t4"><label for="w5d1t4">Filtering and selection</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Data Cleaning</div>
+<div class="task"><input type="checkbox" id="w5d1t5"><label for="w5d1t5">Handle missing values</label></div>
+<div class="task"><input type="checkbox" id="w5d1t6"><label for="w5d1t6">Remove duplicates, type conversions</label></div></div>
+</div></details>
+
+<!-- WEEK 6 -->
+<details><summary>Week 6 — Feature Engineering & Pipelines</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Scaling & Encoding</div>
+<div class="task"><input type="checkbox" id="w6d1t1"><label for="w6d1t1">Normalize/standardize features</label></div>
+<div class="task"><input type="checkbox" id="w6d1t2"><label for="w6d1t2">Categorical encoding (one-hot, label)</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: sklearn Preprocessing</div>
+<div class="task"><input type="checkbox" id="w6d1t3"><label for="w6d1t3">Scalers and transformers</label></div>
+<div class="task"><input type="checkbox" id="w6d1t4"><label for="w6d1t4">Build preprocessing pipeline</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: EDA Project</div>
+<div class="task"><input type="checkbox" id="w6d1t5"><label for="w6d1t5">Clean dataset & prepare train/test</label></div></div>
+</div></details>
+
+<!-- WEEK 7 -->
+<details><summary>Week 7 — Matplotlib Visualization</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Basic Plot Types</div>
+<div class="task"><input type="checkbox" id="w7d1t1"><label for="w7d1t1">Line plots, scatter, bar charts</label></div>
+<div class="task"><input type="checkbox" id="w7d1t2"><label for="w7d1t2">Histograms and box plots</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Styling & Layouts</div>
+<div class="task"><input type="checkbox" id="w7d1t3"><label for="w7d1t3">Subplots, annotations, colors</label></div>
+<div class="task"><input type="checkbox" id="w7d1t4"><label for="w7d1t4">Labels, legends, titles</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Data Visualization</div>
+<div class="task"><input type="checkbox" id="w7d1t5"><label for="w7d1t5">Visualize cleaned dataset</label></div></div>
+</div></details>
+
+<!-- WEEK 8 -->
+<details><summary>Week 8 — Seaborn & Statistical Graphics</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Seaborn Basics</div>
+<div class="task"><input type="checkbox" id="w8d1t1"><label for="w8d1t1">Heatmaps, pairplots, catplots</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Statistical Plots</div>
+<div class="task"><input type="checkbox" id="w8d1t2"><label for="w8d1t2">Regression plots, boxplots</label></div>
+<div class="task"><input type="checkbox" id="w8d1t3"><label for="w8d1t3">Distribution analysis</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Complete EDA Report</div>
+<div class="task"><input type="checkbox" id="w8d1t4"><label for="w8d1t4">Multi-plot analysis and insights</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== MONTH 3: SQL & MACHINE LEARNING ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 3: SQL & Machine Learning (Weeks 9-12)</div>
+
+<!-- WEEK 9 -->
+<details><summary>Week 9 — SQL Core</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Basic Queries</div>
+<div class="task"><input type="checkbox" id="w9d1t1"><label for="w9d1t1">SELECT, WHERE, ORDER BY, LIMIT</label></div>
+<div class="task"><input type="checkbox" id="w9d1t2"><label for="w9d1t2">INSERT, UPDATE, DELETE</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Joins</div>
+<div class="task"><input type="checkbox" id="w9d1t3"><label for="w9d1t3">INNER/LEFT/RIGHT/FULL JOIN</label></div>
+<div class="task"><input type="checkbox" id="w9d1t4"><label for="w9d1t4">Multiple table queries</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Aggregations</div>
+<div class="task"><input type="checkbox" id="w9d1t5"><label for="w9d1t5">GROUP BY, HAVING</label></div>
+<div class="task"><input type="checkbox" id="w9d1t6"><label for="w9d1t6">Subqueries and nested queries</label></div></div>
+</div></details>
+
+<!-- WEEK 10 -->
+<details><summary>Week 10 — SQL Advanced</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Indexes & Constraints</div>
+<div class="task"><input type="checkbox" id="w10d1t1"><label for="w10d1t1">Primary keys, foreign keys</label></div>
+<div class="task"><input type="checkbox" id="w10d1t2"><label for="w10d1t2">Database normalization</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Window Functions</div>
+<div class="task"><input type="checkbox" id="w10d1t3"><label for="w10d1t3">ROW_NUMBER, RANK, DENSE_RANK</label></div>
+<div class="task"><input type="checkbox" id="w10d1t4"><label for="w10d1t4">SUM/AVG OVER clauses</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: SQL Analytics</div>
+<div class="task"><input type="checkbox" id="w10d1t5"><label for="w10d1t5">Build complex reporting queries</label></div></div>
+</div></details>
+
+<!-- WEEK 11 -->
+<details><summary>Week 11 — ML Foundations</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Supervised Learning Basics</div>
+<div class="task"><input type="checkbox" id="w11d1t1"><label for="w11d1t1">Linear regression concepts</label></div>
+<div class="task"><input type="checkbox" id="w11d1t2"><label for="w11d1t2">Loss functions and metrics</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Classification Learning</div>
+<div class="task"><input type="checkbox" id="w11d1t3"><label for="w11d1t3">Logistic regression</label></div>
+<div class="task"><input type="checkbox" id="w11d1t4"><label for="w11d1t4">Evaluation metrics (accuracy, precision, recall)</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Model Workflow</div>
+<div class="task"><input type="checkbox" id="w11d1t5"><label for="w11d1t5">Train/test split methodology</label></div>
+<div class="task"><input type="checkbox" id="w11d1t6"><label for="w11d1t6">Cross-validation</label></div></div>
+</div></details>
+
+<!-- WEEK 12 -->
+<details><summary>Week 12 — ML Algorithms</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Decision Trees & KNN</div>
+<div class="task"><input type="checkbox" id="w12d1t1"><label for="w12d1t1">Decision Tree theory and implementation</label></div>
+<div class="task"><input type="checkbox" id="w12d1t2"><label for="w12d1t2">K-Nearest Neighbors algorithm</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Ensemble Methods</div>
+<div class="task"><input type="checkbox" id="w12d1t3"><label for="w12d1t3">Random Forest ensemble</label></div>
+<div class="task"><input type="checkbox" id="w12d1t4"><label for="w12d1t4">Gradient Boosting (XGBoost basics)</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: ML End-to-End</div>
+<div class="task"><input type="checkbox" id="w12d1t5"><label for="w12d1t5">Complete ML pipeline on dataset</label></div>
+<div class="task"><input type="checkbox" id="w12d1t6"><label for="w12d1t6">Compare multiple models</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== MONTH 4: DEEP LEARNING FUNDAMENTALS ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 4: Deep Learning Fundamentals (Weeks 13-16)</div>
+
+<!-- WEEK 13 -->
+<details><summary>Week 13 — Neural Network Basics</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Perceptron & Forward Pass</div>
+<div class="task"><input type="checkbox" id="w13d1t1"><label for="w13d1t1">Perceptron algorithm</label></div>
+<div class="task"><input type="checkbox" id="w13d1t2"><label for="w13d1t2">Forward propagation intuition</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Activation & Loss Functions</div>
+<div class="task"><input type="checkbox" id="w13d1t3"><label for="w13d1t3">ReLU, Sigmoid, Tanh activations</label></div>
+<div class="task"><input type="checkbox" id="w13d1t4"><label for="w13d1t4">MSE and Cross-entropy loss</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: First Neural Network</div>
+<div class="task"><input type="checkbox" id="w13d1t5"><label for="w13d1t5">Build and train simple MLP in Keras</label></div></div>
+</div></details>
+
+<!-- WEEK 14 -->
+<details><summary>Week 14 — Convolutional Neural Networks</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Convolutions Explained</div>
+<div class="task"><input type="checkbox" id="w14d1t1"><label for="w14d1t1">Filters, kernels, feature maps</label></div>
+<div class="task"><input type="checkbox" id="w14d1t2"><label for="w14d1t2">Strides, padding, pooling</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: CNN Implementation</div>
+<div class="task"><input type="checkbox" id="w14d1t3"><label for="w14d1t3">Build CNN in TensorFlow/Keras</label></div>
+<div class="task"><input type="checkbox" id="w14d1t4"><label for="w14d1t4">Train on MNIST/CIFAR-10</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: PyTorch Introduction</div>
+<div class="task"><input type="checkbox" id="w14d1t5"><label for="w14d1t5">Tensor basics and operations</label></div>
+<div class="task"><input type="checkbox" id="w14d1t6"><label for="w14d1t6">Build CNN in PyTorch</label></div></div>
+</div></details>
+
+<!-- WEEK 15 -->
+<details><summary>Week 15 — Recurrent Neural Networks</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Sequence Learning</div>
+<div class="task"><input type="checkbox" id="w15d1t1"><label for="w15d1t1">RNN and LSTM theory</label></div>
+<div class="task"><input type="checkbox" id="w15d1t2"><label for="w15d1t2">Gates and memory cells</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: PyTorch RNN</div>
+<div class="task"><input type="checkbox" id="w15d1t3"><label for="w15d1t3">LSTM implementation in PyTorch</label></div>
+<div class="task"><input type="checkbox" id="w15d1t4"><label for="w15d1t4">Time series prediction</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: NLP Project</div>
+<div class="task"><input type="checkbox" id="w15d1t5"><label for="w15d1t5">Sentiment classification with RNN</label></div></div>
+</div></details>
+
+<!-- WEEK 16 -->
+<details><summary>Week 16 — Transfer Learning & Pre-trained Models</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Pre-trained Models</div>
+<div class="task"><input type="checkbox" id="w16d1t1"><label for="w16d1t1">ResNet, VGG, MobileNet concepts</label></div>
+<div class="task"><input type="checkbox" id="w16d1t2"><label for="w16d1t2">Load pre-trained weights</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-5: Fine-tuning</div>
+<div class="task"><input type="checkbox" id="w16d1t3"><label for="w16d1t3">Freeze layers, adapt classifier</label></div>
+<div class="task"><input type="checkbox" id="w16d1t4"><label for="w16d1t4">Fine-tune on custom dataset</label></div></div>
+<div class="day"><div class="day-title">📌 Day 6-7: Transfer Demo</div>
+<div class="task"><input type="checkbox" id="w16d1t5"><label for="w16d1t5">Build end-to-end transfer learning app</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== MONTH 5: DEPLOYMENT & APIS ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 5: Deployment & APIs (Weeks 17-20)</div>
+
+<!-- WEEK 17 -->
+<details><summary>Week 17 — Git & Version Control</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Git Basics</div>
+<div class="task"><input type="checkbox" id="w17d1t1"><label for="w17d1t1">init, add, commit, log</label></div>
+<div class="task"><input type="checkbox" id="w17d1t2"><label for="w17d1t2">Remote repos and GitHub</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Branching & Collaboration</div>
+<div class="task"><input type="checkbox" id="w17d1t3"><label for="w17d1t3">Create branches, merge, rebase</label></div>
+<div class="task"><input type="checkbox" id="w17d1t4"><label for="w17d1t4">Pull requests and code review</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: GitHub Workflow</div>
+<div class="task"><input type="checkbox" id="w17d1t5"><label for="w17d1t5">Push ML projects to GitHub</label></div></div>
+</div></details>
+
+<!-- WEEK 18 -->
+<details><summary>Week 18 — REST API Design & Model Serving</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Flask Basics</div>
+<div class="task"><input type="checkbox" id="w18d1t1"><label for="w18d1t1">Routes, request/response</label></div>
+<div class="task"><input type="checkbox" id="w18d1t2"><label for="w18d1t2">JSON handling</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Model Serving</div>
+<div class="task"><input type="checkbox" id="w18d1t3"><label for="w18d1t3">Load ML model in API</label></div>
+<div class="task"><input type="checkbox" id="w18d1t4"><label for="w18d1t4">Prediction endpoint</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: FastAPI Intro</div>
+<div class="task"><input type="checkbox" id="w18d1t5"><label for="w18d1t5">Build FastAPI model server</label></div></div>
+</div></details>
+
+<!-- WEEK 19 -->
+<details><summary>Week 19 — Cloud Deployment</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: Containerization (Docker)</div>
+<div class="task"><input type="checkbox" id="w19d1t1"><label for="w19d1t1">Dockerfile basics</label></div>
+<div class="task"><input type="checkbox" id="w19d1t2"><label for="w19d1t2">Build and run containers</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Cloud Platforms</div>
+<div class="task"><input type="checkbox" id="w19d1t3"><label for="w19d1t3">Heroku or Render deployment</label></div>
+<div class="task"><input type="checkbox" id="w19d1t4"><label for="w19d1t4">Configure env variables</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Production API</div>
+<div class="task"><input type="checkbox" id="w19d1t5"><label for="w19d1t5">Deploy ML API to cloud</label></div></div>
+</div></details>
+
+<!-- WEEK 20 -->
+<details><summary>Week 20 — CI/CD & Monitoring</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-2: GitHub Actions</div>
+<div class="task"><input type="checkbox" id="w20d1t1"><label for="w20d1t1">Create CI/CD workflow</label></div>
+<div class="task"><input type="checkbox" id="w20d1t2"><label for="w20d1t2">Automated testing on push</label></div></div>
+<div class="day"><div class="day-title">📌 Day 3-4: Monitoring & Logging</div>
+<div class="task"><input type="checkbox" id="w20d1t3"><label for="w20d1t3">Application logging</label></div>
+<div class="task"><input type="checkbox" id="w20d1t4"><label for="w20d1t4">Basic metrics collection</label></div></div>
+<div class="day"><div class="day-title">📌 Day 5-7: Production Ready</div>
+<div class="task"><input type="checkbox" id="w20d1t5"><label for="w20d1t5">Deploy with CI/CD pipeline</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== MONTH 6: CAPSTONE & PORTFOLIO ============== -->
+<div class="month-section">
+<div class="month-title">📅 MONTH 6: Capstone Project & Portfolio (Weeks 21-24)</div>
+
+<!-- WEEK 21 -->
+<details><summary>Week 21 — Capstone Planning & Design</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-3: Project Ideation</div>
+<div class="task"><input type="checkbox" id="w21d1t1"><label for="w21d1t1">Choose end-to-end project theme</label></div>
+<div class="task"><input type="checkbox" id="w21d1t2"><label for="w21d1t2">Define scope and objectives</label></div></div>
+<div class="day"><div class="day-title">📌 Day 4-7: Architecture Planning</div>
+<div class="task"><input type="checkbox" id="w21d1t3"><label for="w21d1t3">Design data flow and models</label></div>
+<div class="task"><input type="checkbox" id="w21d1t4"><label for="w21d1t4">Plan API and deployment</label></div></div>
+</div></details>
+
+<!-- WEEK 22 -->
+<details><summary>Week 22 — Model Development</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-3: Data & Preprocessing</div>
+<div class="task"><input type="checkbox" id="w22d1t1"><label for="w22d1t1">Collect and clean data</label></div>
+<div class="task"><input type="checkbox" id="w22d1t2"><label for="w22d1t2">Build preprocessing pipeline</label></div></div>
+<div class="day"><div class="day-title">📌 Day 4-7: Model Training</div>
+<div class="task"><input type="checkbox" id="w22d1t3"><label for="w22d1t3">Implement ML/DL models</label></div>
+<div class="task"><input type="checkbox" id="w22d1t4"><label for="w22d1t4">Hyperparameter tuning</label></div></div>
+</div></details>
+
+<!-- WEEK 23 -->
+<details><summary>Week 23 — API & Deployment</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-3: API Development</div>
+<div class="task"><input type="checkbox" id="w23d1t1"><label for="w23d1t1">Build REST/FastAPI wrapper</label></div>
+<div class="task"><input type="checkbox" id="w23d1t2"><label for="w23d1t2">Add input validation</label></div></div>
+<div class="day"><div class="day-title">📌 Day 4-7: Cloud Deployment</div>
+<div class="task"><input type="checkbox" id="w23d1t3"><label for="w23d1t3">Deploy to Render/Heroku/AWS</label></div>
+<div class="task"><input type="checkbox" id="w23d1t4"><label for="w23d1t4">Test endpoints and edge cases</label></div></div>
+</div></details>
+
+<!-- WEEK 24 -->
+<details><summary>Week 24 — Polish & Portfolio</summary><div class="daily-tasks">
+<div class="day"><div class="day-title">📌 Day 1-3: Code Cleanup</div>
+<div class="task"><input type="checkbox" id="w24d1t1"><label for="w24d1t1">Refactor and document code</label></div>
+<div class="task"><input type="checkbox" id="w24d1t2"><label for="w24d1t2">Add comprehensive comments</label></div></div>
+<div class="day"><div class="day-title">📌 Day 4-5: Documentation</div>
+<div class="task"><input type="checkbox" id="w24d1t3"><label for="w24d1t3">Write detailed README</label></div>
+<div class="task"><input type="checkbox" id="w24d1t4"><label for="w24d1t4">Create API documentation</label></div></div>
+<div class="day"><div class="day-title">📌 Day 6-7: Portfolio Showcase</div>
+<div class="task"><input type="checkbox" id="w24d1t5"><label for="w24d1t5">Record demo video</label></div>
+<div class="task"><input type="checkbox" id="w24d1t6"><label for="w24d1t6">Publish project on GitHub</label></div></div>
+</div></details>
+</div>
+
+<!-- ============== RESOURCES & COMMUNITIES ============== -->
+<div class="month-section">
+<div class="month-title">� How to Use This Tracker</div>
+
+<details>
+<summary>📌 Getting Started & Best Practices</summary>
+<div style="padding: 15px; color: #d1fae5;">
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #3b82f6;">
+    <div style="color: #60a5fa; font-weight: bold; margin-bottom: 8px;">1️⃣ DAILY WORKFLOW</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      • <strong>Morning:</strong> Check "Today's Goal" - It's automatically calculated from the daily goals section<br/>
+      • <strong>Start:</strong> Click the "Start" button on the Study Session Timer<br/>
+      • <strong>Work:</strong> Read concepts first (10-15 min), then code along with tutorials (usually 60-90 min)<br/>
+      • <strong>Practice:</strong> Solve practice problems or exercises (remaining time)<br/>
+      • <strong>Log:</strong> Check off completed tasks as you finish them<br/>
+      • <strong>Evening:</strong> Review what you learned and plan tomorrow
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #10b981;">
+    <div style="color: #34d399; font-weight: bold; margin-bottom: 8px;">2️⃣ TIME TRACKING</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      • Each task has a time estimate (e.g., <span class="time-spent">1.5 hrs</span>) based on realistic study pace<br/>
+      • Use the Study Session Timer to automatically track time spent<br/>
+      • "Time Spent" box shows: Manual task times + Timer elapsed time<br/>
+      • Goal: Try to meet or exceed your daily time goal (aim for consistency)<br/>
+      • Maximum: 6-7 hours/day recommended to avoid burnout
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #fbbf24;">
+    <div style="color: #fcd34d; font-weight: bold; margin-bottom: 8px;">3️⃣ CONCEPTS & MASTERY</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      • Each daily block has a "Key Concepts to Master" section<br/>
+      • ✓ marks show concepts specific to that day<br/>
+      • For each concept: Read theory → Code examples → Build small project<br/>
+      • Don't move to next day until 80% confident in current day's concepts<br/>
+      • Review concepts from previous days weekly
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #ec4899;">
+    <div style="color: #f472b6; font-weight: bold; margin-bottom: 8px;">4️⃣ TRACKING YOUR PROGRESS</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      • <strong>Progress Bar:</strong> Shows overall % of roadmap completed<br/>
+      • <strong>Weekly Summary:</strong> Tasks done this week + hours invested<br/>
+      • <strong>Study Streak:</strong> Days you've studied consistently (counts days with ≥1 task completed)<br/>
+      • <strong>Day Progress:</strong> Green bar under each day shows how many tasks in that day are done<br/>
+      • Data automatically saves to browser storage (persists between sessions)
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #3b82f6;">
+    <div style="color: #93c5fd; font-weight: bold; margin-bottom: 8px;">5️⃣ SAMPLE DAILY SCHEDULE (6-hour day)</div>
+    <div style="margin-left: 10px; background: #0f172a; padding: 10px; border-radius: 4px; font-family: monospace; font-size: 12px;">
+      09:00 - 09:30 | ☕ Coffee + Review yesterday<br/>
+      09:30 - 10:45 | 📚 Theory & Concepts (75 min)<br/>
+      10:45 - 11:00 | ☕ Break<br/>
+      11:00 - 13:00 | 💻 Hands-on Coding (120 min)<br/>
+      13:00 - 14:00 | 🍽️ Lunch Break<br/>
+      14:00 - 15:30 | 🧠 Practice Problems (90 min)<br/>
+      15:30 - 16:00 | 📝 Notes & Summary<br/>
+      <div style="margin-top: 5px; color: #fbbf24;"><strong>Total: 6 hours</strong></div>
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #10b981;">
+    <div style="color: #34d399; font-weight: bold; margin-bottom: 8px;">6️⃣ TIPS FOR SUCCESS</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      ✅ <strong>Consistency over intensity:</strong> 5-6 hours daily is better than 12 hours once a week<br/>
+      ✅ <strong>Code along:</strong> Never just read code - type it out yourself<br/>
+      ✅ <strong>Keep projects:</strong> Save all practice code in GitHub for portfolio<br/>
+      ✅ <strong>Take breaks:</strong> 5 min per hour helps memory consolidation<br/>
+      ✅ <strong>Teach others:</strong> Explain concepts to friends or online communities<br/>
+      ✅ <strong>Stay flexible:</strong> If a topic takes longer, spend extra days on it<br/>
+      ✅ <strong>Weekly review:</strong> Every Sunday, review the week's major concepts
+    </div>
+  </div>
+
+  <div style="background: #1e293b; padding: 12px; margin: 10px 0; border-radius: 6px; border-left: 4px solid #dc2626;">
+    <div style="color: #fca5a5; font-weight: bold; margin-bottom: 8px;">⚠️ COMMON MISTAKES TO AVOID</div>
+    <div style="margin-left: 10px; line-height: 1.6;">
+      ❌ Skipping fundamentals to jump to ML/AI<br/>
+      ❌ Not doing hands-on projects regularly<br/>
+      ❌ Forgetting to save work to GitHub<br/>
+      ❌ Trying to memorize instead of understanding<br/>
+      ❌ Not taking breaks (causes burnout)<br/>
+      ❌ Inconsistent study schedule (one day off breaks streak)
+    </div>
+  </div>
+</div>
+</details>
+
+</div>
+
+<!-- ============== RESOURCES & COMMUNITIES ============== -->
+<div class="month-section">
+<div class="month-title">�📚 Additional Resources & Communities</div>
+
+<details>
+<summary>Online Courses & Certifications</summary>
+<div class="task"><input type="checkbox"> Andrew Ng ML Specialization (Coursera)</div>
+<div class="task"><input type="checkbox"> Deep Learning Specialization (Coursera)</div>
+<div class="task"><input type="checkbox"> Fast.ai Practical Deep Learning</div>
+<div class="task"><input type="checkbox"> Google TensorFlow Certificate</div>
+<div class="task"><input type="checkbox"> Hugging Face Course (Free)</div>
+<div class="task"><input type="checkbox"> DeepLearning.AI Courses</div>
+</details>
+
+<details>
+<summary>Books & Papers</summary>
+<div class="task"><input type="checkbox"> "Hands-On ML" by Aurélien Géron</div>
+<div class="task"><input type="checkbox"> "Deep Learning" by Goodfellow et al.</div>
+<div class="task"><input type="checkbox"> "ML Yearning" by Andrew Ng</div>
+<div class="task"><input type="checkbox"> "Attention is All You Need" (Transformer Paper)</div>
+<div class="task"><input type="checkbox"> Latest ICLR, NeurIPS, ICML papers</div>
+</details>
+
+<details>
+<summary>Communities & Forums</summary>
+<div class="task"><input type="checkbox"> r/MachineLearning & r/learnmachinelearning on Reddit</div>
+<div class="task"><input type="checkbox"> Kaggle Competitions</div>
+<div class="task"><input type="checkbox"> Papers with Code</div>
+<div class="task"><input type="checkbox"> Hugging Face Community</div>
+<div class="task"><input type="checkbox"> AI/ML Discord Servers</div>
+</details>
+
+</div>
+
+<hr style="margin-top: 40px; margin-bottom: 20px; border-color: #334155;">
+
+<div style="background: #1e2a3a; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; text-align: center; border: 2px solid #3b82f6;">
+      <div style="color: #60a5fa; font-size: 12px; font-weight: bold;">TOTAL HOURS REQUIRED</div>
+      <div style="color: #bfdbfe; font-size: 22px; margin-top: 5px; font-weight: bold;">720 hrs</div>
+      <div style="color: #3b82f6; font-size: 11px; margin-top: 3px;">30-40 hrs/week × 24 weeks</div>
+    </div>
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; text-align: center; border: 2px solid #10b981;">
+      <div style="color: #34d399; font-size: 12px; font-weight: bold;">ESTIMATED COMPLETION</div>
+      <div style="color: #d1fae5; font-size: 22px; margin-top: 5px; font-weight: bold;">6 Months</div>
+      <div style="color: #10b981; font-size: 11px; margin-top: 3px;">Starting Today</div>
+    </div>
+    <div style="background: #0f172a; padding: 12px; border-radius: 6px; text-align: center; border: 2px solid #fbbf24;">
+      <div style="color: #fcd34d; font-size: 12px; font-weight: bold;">HOURS COMPLETED</div>
+      <div style="color: #fef08a; font-size: 22px; margin-top: 5px; font-weight: bold;" id="totalHoursCompleted">0</div>
+      <div style="color: #fbbf24; font-size: 11px; margin-top: 3px;" id="completionPercent">0%</div>
+    </div>
+  </div>
+
+  <div style="background: linear-gradient(90deg, rgba(15,23,42,0.5) 0%, rgba(15,23,42,0.5) 100%); padding: 15px; border-radius: 6px; border-left: 4px solid #8b5cf6; text-align: center;">
+    <div style="color: #c4b5fd; font-size: 13px; line-height: 1.5;">
+      <strong>🎯 Pro Tip:</strong> Maintain consistency for 6 months and you'll be job-ready in ML/AI!<br/>
+      <span style="font-size: 12px; color: #a78bfa;">GitHub projects + Capstone = Strong portfolio for job applications</span>
+    </div>
+  </div>
+</div>
+
+<div style="text-align: center; color: #64748b; font-size: 12px; padding: 15px;">
+  <strong>Last Updated: March 24, 2026</strong><br/>
+  Overall Progress: <span id="percentComplete" style="color: #60a5fa; font-weight: bold;">0</span>% Complete<br/>
+  <span style="font-size: 11px;">💾 Progress auto-saves to your browser. Open DevTools → Storage → LocalStorage to backup your data.</span>
+</div>
+
+<script>
+
+// ==================== BACKEND CONFIG ====================
+const API_URL = 'http://localhost:5000/api';
+let backendAvailable = false;
+
+// Check if backend is available
+async function checkBackend() {
+  try {
+    const response = await fetch(`${API_URL}/health`);
+    backendAvailable = response.ok;
+    console.log(`Backend Status: ${backendAvailable ? '✅ Connected' : '❌ Offline'}`);
+  } catch (error) {
+    backendAvailable = false;
+    console.log('Backend Offline - Using LocalStorage');
+  }
+}
+
+// ==================== ENHANCED TIMER FUNCTIONALITY ====================
+let timerInterval = null;
+let timerSeconds = 0;
+let totalTimeSpent = 0;
+let sessionCount = 0;
+let isBreakMode = false;
+let targetDuration = 25 * 60; // Default 25 min Pomodoro
+
+const motivationalTips = [
+  "🎯 Focus on one task at a time",
+  "💪 You're building great habits!",
+  "🌟 Progress over perfection",
+  "🔥 Keep the momentum going!",
+  "📚 Every line of code counts",
+  "✨ Consistency is key to mastery",
+  "🚀 You got this! Keep learning!",
+  "⏰ Use breaks wisely",
+  "💡 Deep work produces results",
+  "🎓 Learning compounds over time"
+];
+
+function initTimer() {
+  createFloatingTimer();
+  loadCustomDurations();
+  displayRandomTip();
+}
+
+function createFloatingTimer() {
+  if (document.getElementById('floating-timer')) return;
+  
+  const timerHTML = `
+    <div id="floating-timer" class="study-timer-floating">
+      <div class="timer-header">
+        <div style="display: flex; gap: 8px; align-items: center;">
+          <div class="timer-title">⏱️ STUDY TIMER</div>
+          <div class="timer-mode-badge" id="modeDisplay">Study Mode</div>
+        </div>
+        <button class="minimize-btn" id="minimizeBtn" onclick="toggleMinimize()">−</button>
+      </div>
+      
+      <div class="timer-display" id="floatingTimerDisplay">00:00:00</div>
+      
+      <div class="preset-buttons">
+        <button class="preset-btn active" onclick="setDuration(25*60, this)">🍅 25 min</button>
+        <button class="preset-btn" onclick="setDuration(45*60, this)">📖 45 min</button>
+        <button class="preset-btn" onclick="setDuration(5*60, this)">☕ 5 min Break</button>
+        <button class="preset-btn" onclick="setDuration(15*60, this)">🌳 15 min Break</button>
+      </div>
+      
+      <div class="custom-duration-section">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+          <div>
+            <input type="number" id="customStudyInput" placeholder="Study (min)" min="1" max="120" value="25" style="width: 100%; padding: 6px; border: 1px solid #60a5fa; border-radius: 4px; background: #0f172a; color: #bfdbfe; text-align: center;">
+            <button onclick="applyCustomStudy()" style="width: 100%; padding: 6px; margin-top: 4px; background: #3b82f6; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">📚 Set Study</button>
+          </div>
+          <div>
+            <input type="number" id="customBreakInput" placeholder="Break (min)" min="1" max="60" value="5" style="width: 100%; padding: 6px; border: 1px solid #fbbf24; border-radius: 4px; background: #0f172a; color: #fef08a; text-align: center;">
+            <button onclick="applyCustomBreak()" style="width: 100%; padding: 6px; margin-top: 4px; background: #fbbf24; color: #000; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">☕ Set Break</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="session-info">
+        Sessions Completed: <span class="session-count" id="sessionCounter">0</span>
+      </div>
+      
+      <div class="tips-box" id="tipsDisplay">💡 Focus on learning, not just coding</div>
+      
+      <div class="timer-controls">
+        <button class="timer-btn timer-btn-primary" onclick="startTimer()">▶ START</button>
+        <button class="timer-btn timer-btn-secondary" onclick="pauseTimer()">⏸ PAUSE</button>
+        <button class="timer-btn timer-btn-danger" onclick="resetTimer()">↺ RESET</button>
+      </div>
+      
+      <div class="timer-controls-bottom">
+        <button class="timer-toggle-btn active" id="studyModeBtn" onclick="toggleMode('study')">📚 Study</button>
+        <button class="timer-toggle-btn" id="breakModeBtn" onclick="toggleMode('break')">☕ Break</button>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('afterbegin', timerHTML);
+  
+  // Setup drag functionality
+  setupTimerDrag();
+}
+
+function setupTimerDrag() {
+  const timer = document.getElementById('floating-timer');
+  const header = timer.querySelector('.timer-header');
+  let isDragging = false;
+  let startX = 0;
+  let startY = 0;
+  let startLeft = 0;
+  let startTop = 0;
+  
+  // Load saved position from localStorage
+  const savedPosition = localStorage.getItem('timerPosition');
+  if (savedPosition) {
+    const pos = JSON.parse(savedPosition);
+    timer.style.left = pos.left + 'px';
+    timer.style.top = pos.top + 'px';
+  }
+  
+  // Load minimized state from localStorage
+  const isMinimized = localStorage.getItem('timerMinimized') === 'true';
+  if (isMinimized) {
+    timer.classList.add('minimized');
+    document.getElementById('minimizeBtn').textContent = '+';
+  }
+  
+  header.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    startLeft = timer.offsetLeft;
+    startTop = timer.offsetTop;
+    timer.classList.add('dragging');
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    
+    const deltaX = e.clientX - startX;
+    const deltaY = e.clientY - startY;
+    
+    let newLeft = startLeft + deltaX;
+    let newTop = startTop + deltaY;
+    
+    // Boundary checking - keep timer within viewport
+    const maxLeft = window.innerWidth - timer.offsetWidth;
+    const maxTop = window.innerHeight - timer.offsetHeight;
+    
+    newLeft = Math.max(0, Math.min(newLeft, maxLeft));
+    newTop = Math.max(0, Math.min(newTop, maxTop));
+    
+    timer.style.left = newLeft + 'px';
+    timer.style.top = newTop + 'px';
+  });
+  
+  document.addEventListener('mouseup', () => {
+    if (isDragging) {
+      isDragging = false;
+      timer.classList.remove('dragging');
+      
+      // Save position to localStorage
+      const position = {
+        left: timer.offsetLeft,
+        top: timer.offsetTop
+      };
+      localStorage.setItem('timerPosition', JSON.stringify(position));
+    }
+  });
+}
+
+function setDuration(seconds, element) {
+  pauseTimer();
+  targetDuration = seconds;
+  timerSeconds = 0;
+  
+  document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+  element.classList.add('active');
+  updateTimerDisplay();
+}
+
+function applyCustomStudy() {
+  const input = document.getElementById('customStudyInput');
+  const minutes = parseInt(input.value) || 25;
+  const seconds = minutes * 60;
+  
+  // Validate input
+  if (minutes < 1 || minutes > 120) {
+    alert('Study time must be between 1 and 120 minutes');
+    input.value = 25;
+    return;
+  }
+  
+  // Apply duration and deselect presets
+  pauseTimer();
+  targetDuration = seconds;
+  timerSeconds = 0;
+  document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+  
+  // Save to localStorage
+  localStorage.setItem('customStudyDuration', minutes);
+  updateTimerDisplay();
+  startTimer();
+}
+
+function applyCustomBreak() {
+  const input = document.getElementById('customBreakInput');
+  const minutes = parseInt(input.value) || 5;
+  const seconds = minutes * 60;
+  
+  // Validate input
+  if (minutes < 1 || minutes > 60) {
+    alert('Break time must be between 1 and 60 minutes');
+    input.value = 5;
+    return;
+  }
+  
+  // Apply duration and deselect presets
+  pauseTimer();
+  targetDuration = seconds;
+  timerSeconds = 0;
+  document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+  
+  // Save to localStorage
+  localStorage.setItem('customBreakDuration', minutes);
+  updateTimerDisplay();
+  startTimer();
+}
+
+function loadCustomDurations() {
+  const customStudy = localStorage.getItem('customStudyDuration');
+  const customBreak = localStorage.getItem('customBreakDuration');
+  
+  if (customStudy) {
+    document.getElementById('customStudyInput').value = customStudy;
+  }
+  if (customBreak) {
+    document.getElementById('customBreakInput').value = customBreak;
+  }
+}
+
+function toggleMinimize() {
+  const timer = document.getElementById('floating-timer');
+  const minimizeBtn = document.getElementById('minimizeBtn');
+  
+  timer.classList.toggle('minimized');
+  
+  const isMinimized = timer.classList.contains('minimized');
+  
+  // Update button icon
+  minimizeBtn.textContent = isMinimized ? '+' : '−';
+  
+  // Save state to localStorage
+  localStorage.setItem('timerMinimized', isMinimized);
+}
+
+function toggleMode(mode) {
+  isBreakMode = mode === 'break';
+  document.getElementById('studyModeBtn').classList.toggle('active', !isBreakMode);
+  document.getElementById('breakModeBtn').classList.toggle('active', isBreakMode);
+  document.getElementById('modeDisplay').textContent = isBreakMode ? '☕ Break Mode' : '📚 Study Mode';
+  pauseTimer();
+  resetTimer();
+  startTimer();
+}
+
+function startTimer() {
+  if (timerInterval) return;
+  timerInterval = setInterval(() => {
+    timerSeconds++;
+    totalTimeSpent++;
+    updateTimerDisplay();
+    updateTimeSpent();
+    
+    // Check if target duration reached
+    if (timerSeconds >= targetDuration) {
+      completeSession();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+  }
+}
+
+function resetTimer() {
+  pauseTimer();
+  timerSeconds = 0;
+  updateTimerDisplay();
+}
+
+function completeSession() {
+  pauseTimer();
+  timerSeconds = 0;
+  
+  if (!isBreakMode) {
+    sessionCount++;
+    document.getElementById('sessionCounter').textContent = sessionCount;
+  }
+  
+  // Play notification sound
+  playNotificationSound();
+  
+  // Show alert
+  const message = isBreakMode ? '✨ Break time over! Back to studying?' : '🎉 Session complete! Take a break?';
+  alert(message);
+  
+  displayRandomTip();
+  updateTimerDisplay();
+}
+
+function playNotificationSound() {
+  // Create simple beep using Web Audio API
+  try {
+    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    const oscillator = audioContext.createOscillator();
+    const gain = audioContext.createGain();
+    
+    oscillator.connect(gain);
+    gain.connect(audioContext.destination);
+    
+    oscillator.frequency.value = 800;
+    oscillator.type = 'sine';
+    
+    gain.gain.setValueAtTime(0.3, audioContext.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+    
+    oscillator.start(audioContext.currentTime);
+    oscillator.stop(audioContext.currentTime + 0.5);
+  } catch(e) {
+    console.log('Audio notification not available');
+  }
+}
+
+function displayRandomTip() {
+  const randomTip = motivationalTips[Math.floor(Math.random() * motivationalTips.length)];
+  document.getElementById('tipsDisplay').textContent = randomTip;
+}
+
+function updateTimerDisplay() {
+  const hours = Math.floor(timerSeconds / 3600);
+  const minutes = Math.floor((timerSeconds % 3600) / 60);
+  const seconds = timerSeconds % 60;
+  const timeStr = String(hours).padStart(2, '0') + ':' + 
+                  String(minutes).padStart(2, '0') + ':' + 
+                  String(seconds).padStart(2, '0');
+  
+  document.getElementById('floatingTimerDisplay').textContent = timeStr;
+  document.getElementById('timerDisplay').textContent = timeStr;
+}
+
+// ==================== PROGRESS TRACKING ====================
+let checkboxes = document.querySelectorAll("input[type='checkbox']");
+let conceptsCompleted = new Set();
+
+function calculateTimeSpent() {
+  let total = 0;
+  let checkedCount = 0;
+
+  document.querySelectorAll("input[type='checkbox']:checked").forEach(box => {
+    checkedCount++;
+    let timeElement = box.nextElementSibling && box.nextElementSibling.nextElementSibling;
+    if (timeElement && timeElement.classList.contains('time-spent')) {
+      let timeText = timeElement.textContent.match(/[\d.]+/);
+      if (timeText) {
+        total += parseFloat(timeText[0]);
+        return;
+      }
+    }
+    // fallback estimate: 1 hour per checked task when no explicit time estimate given
+    total += 1;
+  });
+
+  // If no checkboxes are checked, still keep 0
+  return total.toFixed(1);
+}
+
+function updateTotalHoursCompleted() {
+  const manualHours = parseFloat(calculateTimeSpent());
+  const timerHours = (totalTimeSpent / 3600);
+  const total = (manualHours + timerHours).toFixed(1);
+  const percent = ((total / 720) * 100).toFixed(1);
+  
+  document.getElementById('totalHoursCompleted').textContent = total;
+  document.getElementById('completionPercent').textContent = percent + '%';
+}
+
+function calculateConceptsLearned() {
+  let count = 0;
+  document.querySelectorAll(".concept-item").forEach(item => {
+    let conceptText = item.textContent.trim();
+    if (conceptText.startsWith('✓')) {
+      count++;
+    }
+  });
+  return count;
+}
+
+function updateTimeSpent() {
+  let manualTime = parseFloat(calculateTimeSpent());
+  let timerHours = (totalTimeSpent / 3600).toFixed(1);
+  let total = (manualTime + parseFloat(timerHours)).toFixed(1);
+  document.getElementById('timeSpent').textContent = total;
+}
+
+function updateProgress() {
+  const total = checkboxes.length;
+  const checked = document.querySelectorAll("input[type='checkbox']:checked").length;
+  const taskPercent = total ? Math.round((checked / total) * 100) : 0;
+
+  // 720 hours is total roadmap target, use both manual+timer hours for hour-based progress
+  const totalCompletedHours = parseFloat(calculateTimeSpent()) + (totalTimeSpent / 3600);
+  const hourPercent = Math.min(100, Math.round((totalCompletedHours / 720) * 100));
+
+  // combined progress: weight time/effort and task completion equally
+  const combinedPercent = Math.min(100, Math.round((taskPercent + hourPercent) / 2));
+
+  document.getElementById('progressFill').style.width = combinedPercent + '%';
+  document.getElementById('percentComplete').textContent = combinedPercent;
+  
+  // Week progress
+  let weekTasksCompleted = 0;
+  let allWeekTasks = 0;
+  document.querySelectorAll("input[type='checkbox']").forEach(box => {
+    allWeekTasks++;
+    if (box.checked) weekTasksCompleted++;
+  });
+  document.getElementById('weekTasks').textContent = weekTasksCompleted + '/' + allWeekTasks;
+  document.getElementById('weekProgress').textContent = taskPercent + '%';
+
+  updateTimeSpent();
+  updateConcepts();
+  updateDailyGoals();
+  updateTotalHoursCompleted();
+}
+
+
+function updateConcepts() {
+  const concepts = calculateConceptsLearned();
+  document.getElementById('conceptsCount').textContent = concepts;
+}
+
+function updateDailyGoals() {
+  // Calculate today's goal from active daily goal
+  const activeGoals = document.querySelectorAll('.daily-goal.active');
+  let totalGoal = 0;
+  activeGoals.forEach(goal => {
+    let timeText = goal.querySelector('.time-indicator').textContent.match(/[\d-]+/);
+    if (timeText) {
+      let hours = timeText[0].split('-')[0];
+      totalGoal += parseInt(hours);
+    }
+  });
+  
+  if (totalGoal > 0) {
+    document.getElementById('todayGoal').textContent = totalGoal;
+  }
+}
+
+function updateStreak() {
+  let streak = localStorage.getItem('studyStreak') || 0;
+  document.getElementById('streak').textContent = '🔥 ' + streak;
+}
+
+function incrementStreak() {
+  let streak = parseInt(localStorage.getItem('studyStreak')) || 0;
+  let lastDate = localStorage.getItem('lastStudyDate');
+  let today = new Date().toDateString();
+  
+  if (lastDate !== today) {
+    if (lastDate === new Date(new Date().setDate(new Date().getDate() - 1)).toDateString()) {
+      streak++;
+    } else {
+      streak = 1;
+    }
+    localStorage.setItem('lastStudyDate', today);
+    localStorage.setItem('studyStreak', streak);
+    updateStreak();
+  }
+}
+
+// ==================== EVENT LISTENERS ====================
+checkboxes.forEach((box, i) => {
+  let saved = localStorage.getItem("task" + i);
+  if (saved == "true") box.checked = true;
+
+  box.addEventListener("change", async () => {
+    localStorage.setItem("task" + i, box.checked);
+    
+    // Save to backend if available
+    if (backendAvailable) {
+      try {
+        const taskId = "task_" + i;
+        await fetch(`${API_URL}/tasks/save`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            tasks: { [taskId]: box.checked ? 1 : 0 }
+          })
+        });
+      } catch (error) {
+        console.log('Failed to save to backend:', error);
+      }
+    }
+    
+    updateProgress();
+    incrementStreak();
+  });
+});
+
+// ==================== WEEKLY HOURS TRACKING ====================
+function calculateWeeklyHours() {
+  let hours = 0;
+  document.querySelectorAll(".time-spent").forEach(element => {
+    let match = element.textContent.match(/[\d.]+/);
+    if (match) hours += parseFloat(match[0]);
+  });
+  document.getElementById('weekHours').textContent = hours.toFixed(1);
+}
+
+// ==================== BACKEND SYNC ====================
+async function saveToBbackend() {
+  if (!backendAvailable) return;
+  
+  try {
+    const timeSpent = calculateTimeSpent();
+    await fetch(`${API_URL}/time/save`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        hours_spent: parseFloat(timeSpent),
+        timer_seconds: totalTimeSpent
+      })
+    });
+  } catch (error) {
+    console.log('Failed to sync with backend:', error);
+  }
+}
+
+async function loadFromBackend() {
+  if (!backendAvailable) return;
+  
+  try {
+    const response = await fetch(`${API_URL}/tasks/load`);
+    const data = await response.json();
+    
+    if (data.status === 'success') {
+      const tasks = data.tasks;
+      checkboxes.forEach((box, i) => {
+        const taskId = "task_" + i;
+        if (tasks[taskId]) {
+          box.checked = true;
+        }
+      });
+    }
+  } catch (error) {
+    console.log('Failed to load from backend:', error);
+  }
+}
+
+// ==================== INITIALIZE ====================
+window.addEventListener('load', async () => {
+  await checkBackend();
+  
+  if (backendAvailable) {
+    await loadFromBackend();
+  }
+  
+  updateProgress();
+  updateStreak();
+  calculateWeeklyHours();
+  updateTotalHoursCompleted();
+  
+  // Update day progress bars
+  document.querySelectorAll('.day').forEach(dayDiv => {
+    const tasksInDay = dayDiv.querySelectorAll('input[type="checkbox"]');
+    const dayCheckboxes = Array.from(tasksInDay);
+    
+    const checkboxChangeHandler = () => {
+      const completed = dayCheckboxes.filter(cb => cb.checked).length;
+      const progressBar = dayDiv.querySelector('.day-progress-fill');
+      if (progressBar) {
+        progressBar.style.width = ((completed / dayCheckboxes.length) * 100) + '%';
+      }
+    };
+    
+    dayCheckboxes.forEach(cb => {
+      cb.addEventListener('change', checkboxChangeHandler);
+    });
+  });
+  
+  // Initialize enhanced timer
+  initTimer();
+  
+  // Backend status indicator
+  const indicator = document.createElement('div');
+  indicator.style.cssText = 'position: fixed; top: 10px; right: 10px; padding: 8px 12px; background: ' + 
+    (backendAvailable ? '#10b981' : '#ef4444') + '; color: white; border-radius: 4px; font-size: 12px; z-index: 9998;';
+  indicator.textContent = backendAvailable ? '✅ Database Connected' : '💾 Local Storage Only';
+  document.body.appendChild(indicator);
+});
+
+// Save timer data on page unload
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('totalTimeSpent', totalTimeSpent);
+  if (backendAvailable) {
+    saveToBbackend();
+  }
+});
+
+// Restore timer data on page load
+window.addEventListener('load', () => {
+  totalTimeSpent = parseInt(localStorage.getItem('totalTimeSpent')) || 0;
+  updateTimeSpent();
+  
+  // Auto-sync every 30 seconds
+  if (backendAvailable) {
+    setInterval(saveToBbackend, 30000);
+  }
+});
+
+</script>
+
+</body>
+</html>
