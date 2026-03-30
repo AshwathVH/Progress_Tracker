@@ -1151,11 +1151,12 @@ async function checkBackend() {
 
 // ==================== ENHANCED TIMER FUNCTIONALITY ====================
 let timerInterval = null;
-let timerSeconds = 0;
-let totalTimeSpent = 0;
+let timerSeconds = 0; // elapsed seconds in current session
+let totalTimeSpent = 0; // total accumulated seconds
 let sessionCount = 0;
 let isBreakMode = false;
-let targetDuration = 25 * 60; // Default 25 min Pomodoro
+let targetDuration = 25 * 60; // Default 25 min Pomodoro (countdown)
+let timerRunning = false;
 
 const motivationalTips = [
   "🎯 Focus on one task at a time",
@@ -1192,10 +1193,10 @@ function createFloatingTimer() {
       <div class="timer-display" id="floatingTimerDisplay">00:00:00</div>
       
       <div class="preset-buttons">
-        <button class="preset-btn active" onclick="setDuration(25*60, this)">🍅 25 min</button>
-        <button class="preset-btn" onclick="setDuration(45*60, this)">📖 45 min</button>
-        <button class="preset-btn" onclick="setDuration(5*60, this)">☕ 5 min Break</button>
-        <button class="preset-btn" onclick="setDuration(15*60, this)">🌳 15 min Break</button>
+        <button class="preset-btn active" onclick="setDuration(25*60, this, 'study')">🍅 25 min</button>
+        <button class="preset-btn" onclick="setDuration(45*60, this, 'study')">📖 45 min</button>
+        <button class="preset-btn" onclick="setDuration(5*60, this, 'break')">☕ 5 min Break</button>
+        <button class="preset-btn" onclick="setDuration(15*60, this, 'break')">🌳 15 min Break</button>
       </div>
       
       <div class="custom-duration-section">
@@ -1304,11 +1305,16 @@ function setupTimerDrag() {
   });
 }
 
-function setDuration(seconds, element) {
+function setDuration(seconds, element, mode) {
   pauseTimer();
   targetDuration = seconds;
   timerSeconds = 0;
   
+  isBreakMode = mode === 'break';
+  document.getElementById('modeDisplay').textContent = isBreakMode ? '☕ Break Mode' : '📚 Study Mode';
+  document.getElementById('studyModeBtn').classList.toggle('active', !isBreakMode);
+  document.getElementById('breakModeBtn').classList.toggle('active', isBreakMode);
+
   document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
   element.classList.add('active');
   updateTimerDisplay();
@@ -1330,6 +1336,10 @@ function applyCustomStudy() {
   pauseTimer();
   targetDuration = seconds;
   timerSeconds = 0;
+  isBreakMode = false;
+  document.getElementById('modeDisplay').textContent = '📚 Study Mode';
+  document.getElementById('studyModeBtn').classList.add('active');
+  document.getElementById('breakModeBtn').classList.remove('active');
   document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
   
   // Save to localStorage
@@ -1354,6 +1364,10 @@ function applyCustomBreak() {
   pauseTimer();
   targetDuration = seconds;
   timerSeconds = 0;
+  isBreakMode = true;
+  document.getElementById('modeDisplay').textContent = '☕ Break Mode';
+  document.getElementById('studyModeBtn').classList.remove('active');
+  document.getElementById('breakModeBtn').classList.add('active');
   document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
   
   // Save to localStorage
@@ -1372,6 +1386,35 @@ function loadCustomDurations() {
   if (customBreak) {
     document.getElementById('customBreakInput').value = customBreak;
   }
+}
+
+function saveTimerState() {
+  localStorage.setItem('timerSeconds', timerSeconds);
+  localStorage.setItem('totalTimeSpent', totalTimeSpent);
+  localStorage.setItem('targetDuration', targetDuration);
+  localStorage.setItem('isBreakMode', isBreakMode);
+  localStorage.setItem('sessionCount', sessionCount);
+  localStorage.setItem('timerRunning', timerRunning);
+}
+
+function restoreTimerState() {
+  timerSeconds = parseInt(localStorage.getItem('timerSeconds')) || 0;
+  totalTimeSpent = parseInt(localStorage.getItem('totalTimeSpent')) || 0;
+  targetDuration = parseInt(localStorage.getItem('targetDuration')) || (25 * 60);
+  isBreakMode = localStorage.getItem('isBreakMode') === 'true';
+  sessionCount = parseInt(localStorage.getItem('sessionCount')) || 0;
+  timerRunning = localStorage.getItem('timerRunning') === 'true';
+
+  document.getElementById('modeDisplay').textContent = isBreakMode ? '☕ Break Mode' : '📚 Study Mode';
+  document.getElementById('studyModeBtn').classList.toggle('active', !isBreakMode);
+  document.getElementById('breakModeBtn').classList.toggle('active', isBreakMode);
+
+  document.getElementById('sessionCounter').textContent = sessionCount;
+
+  if (timerRunning) {
+    startTimer();
+  }
+  updateTimerDisplay();
 }
 
 function toggleMinimize() {
@@ -1400,14 +1443,14 @@ function toggleMode(mode) {
 }
 
 function startTimer() {
-  if (timerInterval) return;
+  if (timerRunning) return;
+  timerRunning = true;
   timerInterval = setInterval(() => {
     timerSeconds++;
     totalTimeSpent++;
     updateTimerDisplay();
     updateTimeSpent();
-    
-    // Check if target duration reached
+
     if (timerSeconds >= targetDuration) {
       completeSession();
     }
@@ -1415,10 +1458,13 @@ function startTimer() {
 }
 
 function pauseTimer() {
+  if (!timerRunning) return;
+  timerRunning = false;
   if (timerInterval) {
     clearInterval(timerInterval);
     timerInterval = null;
   }
+  saveTimerState();
 }
 
 function resetTimer() {
@@ -1444,6 +1490,7 @@ function completeSession() {
   alert(message);
   
   displayRandomTip();
+  saveTimerState();
   updateTimerDisplay();
 }
 
@@ -1475,17 +1522,32 @@ function displayRandomTip() {
   document.getElementById('tipsDisplay').textContent = randomTip;
 }
 
-function updateTimerDisplay() {
-  const hours = Math.floor(timerSeconds / 3600);
-  const minutes = Math.floor((timerSeconds % 3600) / 60);
-  const seconds = timerSeconds % 60;
-  const timeStr = String(hours).padStart(2, '0') + ':' + 
-                  String(minutes).padStart(2, '0') + ':' + 
-                  String(seconds).padStart(2, '0');
-  
-  document.getElementById('floatingTimerDisplay').textContent = timeStr;
-  document.getElementById('timerDisplay').textContent = timeStr;
+function getRemainingSeconds() {
+  return Math.max(targetDuration - timerSeconds, 0);
 }
+
+function formatSeconds(seconds) {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  return String(hours).padStart(2, '0') + ':' +
+         String(minutes).padStart(2, '0') + ':' +
+         String(secs).padStart(2, '0');
+}
+
+function updateTimerDisplay() {
+  const remaining = getRemainingSeconds();
+  const elapsed = timerSeconds;
+  const displayText = formatSeconds(remaining);
+
+  document.getElementById('floatingTimerDisplay').textContent = displayText;
+  const legacyDisplay = document.getElementById('timerDisplay');
+  if (legacyDisplay) legacyDisplay.textContent = displayText;
+
+  // keep a human-readable note in element title for elapsed
+  document.getElementById('floatingTimerDisplay').title = `Elapsed: ${formatSeconds(elapsed)}`;
+}
+
 
 // ==================== PROGRESS TRACKING ====================
 let checkboxes = document.querySelectorAll("input[type='checkbox']");
@@ -1740,17 +1802,17 @@ window.addEventListener('load', async () => {
 
 // Save timer data on page unload
 window.addEventListener('beforeunload', () => {
-  localStorage.setItem('totalTimeSpent', totalTimeSpent);
+  saveTimerState();
   if (backendAvailable) {
     saveToBbackend();
   }
 });
 
-// Restore timer data on page load
+// Restore timer and start periodic backend sync
 window.addEventListener('load', () => {
-  totalTimeSpent = parseInt(localStorage.getItem('totalTimeSpent')) || 0;
+  restoreTimerState();
   updateTimeSpent();
-  
+
   // Auto-sync every 30 seconds
   if (backendAvailable) {
     setInterval(saveToBbackend, 30000);
